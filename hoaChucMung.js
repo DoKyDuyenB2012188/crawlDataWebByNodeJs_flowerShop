@@ -1968,3 +1968,5 @@ const hoaChucMung = `
 </div>
 </div>
 `;
+
+exports.hoaChucMung = hoaChucMung;

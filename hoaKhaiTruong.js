@@ -1343,3 +1343,5 @@ const hoaKhaiTruong = `
 </div>
 </div>
 `;
+
+exports.hoaKhaiTruong = hoaKhaiTruong;

@@ -2867,3 +2867,5 @@ const hoaSinhNhat = `
         </div>
     </div>
 `;
+
+exports.hoaSinhNhat = hoaSinhNhat;

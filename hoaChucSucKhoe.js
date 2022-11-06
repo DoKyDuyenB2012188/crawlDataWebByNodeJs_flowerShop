@@ -1243,3 +1243,5 @@ const hoaChucSucKhoe = `
 </div>
 </div>
 `;
+
+exports.hoaChucSucKhoe = hoaChucSucKhoe;

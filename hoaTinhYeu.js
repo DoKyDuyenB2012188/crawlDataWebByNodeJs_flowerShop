@@ -1995,3 +1995,5 @@ const hoaTinhYeu = `
 </div>
 </div>
 `;
+
+exports.hoaTinhYeu = hoaTinhYeu;

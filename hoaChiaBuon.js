@@ -844,3 +844,5 @@ const hoaChiaBuon = `
 </div>
 </div>
 `;
+
+exports.hoaChiaBuon = hoaChiaBuon;

@@ -2222,3 +2222,5 @@ const hoaCamOn = `
 </div>
 </div>
 `;
+
+exports.hoaCamOn = hoaCamOn;

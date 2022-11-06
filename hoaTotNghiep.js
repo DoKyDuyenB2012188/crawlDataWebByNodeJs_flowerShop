@@ -1189,3 +1189,5 @@ const hoaTotNghiep = `
         </div>
     </div>
 `;
+
+exports.hoaTotNghiep = hoaTotNghiep;
