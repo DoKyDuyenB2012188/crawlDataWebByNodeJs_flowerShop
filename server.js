@@ -47,7 +47,7 @@ try {
             $ = cheerio.load(body);
             let r_item = $('.r_item');
             let tags = [];
-            let tag = "Chúc mừng tốt nghiệp, thành công";
+            let tag = "Hoa chia buồn"; // với mỗi loại hoa thì thay tag cho đúng
             tags.push(tag);
             let name_title = r_item.find('.r_item > h2').text().split('\n')[1];
             let old_price = r_item.find('.single-price > .old-price').text();
@@ -61,6 +61,13 @@ try {
             for(i=0; i< des.length ; i++){
                 descriptions.push($(des[i]).text());
             }
+            let check_id = true; // kiểm tra id đã tồn tại hay chưa
+            arr.forEach((item) => {
+                if(item.id == id){
+                    item.tags.push(tag);
+                    check_id = false;
+                }
+            })
             let obj = {
                 id: id,
                 nameCard: name,
@@ -78,13 +85,9 @@ try {
                 },
                 tags: tags
             };
-            arr.forEach((item) => {
-                if(item.id == id){
-                    console.log(item.id);
-                    item.tags.push(tag);
-                }
-            })
-            arr.push(obj);
+            if(check_id){
+                arr.push(obj);
+            }
             fs.writeFile('data.json', JSON.stringify(arr), function (err) {
                 if (err) {
                     console.log(err);
