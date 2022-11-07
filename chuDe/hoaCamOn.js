@@ -2222,5 +2222,5 @@ const hoaCamOn = `
 </div>
 </div>
 `;
-
+exports.occasion_camon = ["hoa cam on"];
 exports.hoaCamOn = hoaCamOn;

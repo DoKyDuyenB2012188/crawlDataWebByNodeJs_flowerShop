@@ -844,5 +844,5 @@ const hoaChiaBuon = `
 </div>
 </div>
 `;
-
+exports.occasion_chiabuon = ["hoa chia buon"];
 exports.hoaChiaBuon = hoaChiaBuon;

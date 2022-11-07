@@ -1995,5 +1995,5 @@ const hoaTinhYeu = `
 </div>
 </div>
 `;
-
+exports.occasion_tinhyeu = ["hoa tinh yeu"];
 exports.hoaTinhYeu = hoaTinhYeu;

@@ -1,16 +1,47 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
-const {hoaTotNghiep} = require('./hoaTotNghiep');
-const {hoaTinhYeu} = require('./hoaTinhYeu');
-const {hoaSinhNhat} = require('./hoaSinhNhat');
-const {hoaKhaiTruong} = require('./hoaKhaiTruong');
-const {hoaChucSucKhoe} = require('./hoaChucSucKhoe');
-const {hoaChucMung} = require('./hoaChucMung');
-const {hoaChiaBuon} = require('./hoaChiaBuon');
-const {hoaCamOn} = require('./hoaCamOn');
+// load tung doi tuong
+// chuDe
+ const {hoaTotNghiep, occasion_totnghiep} = require('./chuDe/hoaTotNghiep');
+// const {hoaTinhYeu, occasion_tinhyeu} = require('./chuDe/hoaTinhYeu');
+// const {hoaSinhNhat, occasion_sinhnhat} = require('./chuDe/hoaSinhNhat');
+// const {hoaKhaiTruong, occasion_khaitruong} = require('./chuDe/hoaKhaiTruong');
+// const {hoaChucSucKhoe, occasion_suckhoe} = require('./chuDe/hoaChucSucKhoe');
+// const {hoaChucMung, occasion_chucmung} = require('./chuDe/hoaChucMung');
+// const {hoaChiaBuon, occasion_chiabuon} = require('./chuDe/hoaChiaBuon');
+// const {hoaCamOn, occasion_camon} = require('./chuDe/hoaCamOn');
+// doiTuong
+// const {hoaTangBanBe, object_banbe} = require("./doiTuong/hoaTangBanBe");
+// const {hoaTangChoNam, object_nam} = require("./doiTuong/hoaTangChoNam");
+// const {hoaTangChoNu, object_nu} = require("./doiTuong/hoaTangChoNu");
+// const {hoaTangChong, object_chong} = require("./doiTuong/hoaTangChong");
+// const {hoaTangDongNghiep, object_dongnghiep} = require("./doiTuong/hoaTangDongNghiep");
+// const {hoaTangMe, object_me} = require("./doiTuong/hoaTangMe");
+// const {hoaTangNguoiYeu, object_nguoiyeu} = require("./doiTuong/hoaTangNguoiYeu");
+// const {hoaTangXep, object_sep} = require("./doiTuong/hoaTangSep");
+// const {hoaTangTreEm, object_treem} = require("./doiTuong/hoaTangTreEm");
+// const {hoaTangVo, object_vo} = require("./doiTuong/hoaTangVo");
+//kieuDang
+// const {boHoaTuoi, style_bo} = require("./kieuDang/boHoaTuoi");
+// const {chauLanHoDiep, style_chaulan} = require("./kieuDang/chauLanHoDiep");
+// const {gioHoa, style_giohoa} = require("./kieuDang/gioHoa");
+// const {hoaBinh, style_hoabinh} = require("./kieuDang/hoaBinh");
+// const {hoaThaBinh, style_thabinh} = require("./kieuDang/hoaThaBinh");
+// const {hopHoa, style_hop} = require("./kieuDang/hopHoa");
+// const {langHoaChiaBuon, style_langHCB} = require("./kieuDang/langHoaChiaBuon");
+// const {langHoaChucMung, style_langCM} = require("./kieuDang/langHoaChucMung");
+// mauSac
+// const {cam, color_cam} = require("./mauSac/cam");
+// const {red, color_red} = require("./mauSac/do");
+// const {hong, color_hong} = require("./mauSac/hong");
+// const {mix, color_mix} = require("./mauSac/mauHonHop");
+// const {tim, color_tim} = require("./mauSac/tim");
+// const {trang, color_trang} = require("./mauSac/trang");
+// const {vang, color_vang} = require("./mauSac/vang");
+// const {xanh, color_xanh} = require("./mauSac/xanhLaVaXanhDuong");
 try {
-    let $ = cheerio.load(hoaChiaBuon);
+    let $ = cheerio.load(hoaTotNghiep); // thay cho nay
     let arr = null;
     fs.readFile('data.json', 'utf8', function(err, data){
         arr = JSON.parse(data);
@@ -46,9 +77,10 @@ try {
         request(URL, function (err, res, body){
             $ = cheerio.load(body);
             let r_item = $('.r_item');
-            let tags = [];
-            let tag = "Hoa chia buồn"; // với mỗi loại hoa thì thay tag cho đúng
-            tags.push(tag);
+            let occasion = occasion_totnghiep; // doi cho nay neu co con khong de []
+            let object = []; // doi cho nay neu co con khong de []
+            let style = []; // doi cho nay neu co con khong de []
+            let color = []; // doi cho nay neu co con khong de []
             let name_title = r_item.find('.r_item > h2').text().split('\n')[1];
             let old_price = r_item.find('.single-price > .old-price').text();
             let  price = r_item.find('.single-price > .price').text();
@@ -64,28 +96,36 @@ try {
             let check_id = true; // kiểm tra id đã tồn tại hay chưa
             arr.forEach((item) => {
                 if(item.id == id){
-                    item.tags.push(tag);
+                    item.occasion.push(...occasion);
+                    item.object.push(...object);
+                    item.style.push(...style);
+                    item.color.push(...color);
+                    check_id = false;
                     check_id = false;
                 }
             })
-            let obj = {
-                id: id,
-                nameCard: name,
-                imageURL: imageURL,
-                newprice: newprice,
-                oldprice: oldprice,
-                newitem: newitem,
-                isale: issale,
-                intro: intro,
-                detail: {
-                    name_title: name_title,
-                    old_price: old_price,
-                    price: price,
-                    descriptions: descriptions
-                },
-                tags: tags
-            };
+
             if(check_id){
+                let obj = {
+                    id: id,
+                    nameCard: name,
+                    imageURL: imageURL,
+                    newprice: newprice,
+                    oldprice: oldprice,
+                    newitem: newitem,
+                    isale: issale,
+                    occasion: occasion,
+                    object: object,
+                    style: style,
+                    color: color,
+                    detail: {
+                        name_title: name_title,
+                        old_price: old_price,
+                        price: price,
+                        descriptions: descriptions,
+                        intro: intro
+                    },
+                };
                 arr.push(obj);
             }
             fs.writeFile('data.json', JSON.stringify(arr), function (err) {

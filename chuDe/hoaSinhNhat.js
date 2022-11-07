@@ -2867,5 +2867,5 @@ const hoaSinhNhat = `
         </div>
     </div>
 `;
-
+exports.occasion_sinhnhat = ["hoa sinh nhat"];
 exports.hoaSinhNhat = hoaSinhNhat;
